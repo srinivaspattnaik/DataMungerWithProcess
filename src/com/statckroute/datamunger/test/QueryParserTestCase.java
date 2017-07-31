@@ -22,47 +22,48 @@ public class QueryParserTestCase
 	/*@Test
 	public void simpleQueryParsingwithAllColumns()throws Exception
 	{
-		query.executeQuery("select * from c:\\Emp.csv");
+		query.executeQuery("select * from c:\\emp1.csv");
 		QueryParam queryParam=query.getQueryParam();
-		displayAllData("select * from c:\\Emp.csv",queryParam);
+		displayAllData("select * from c:\\emp.csv",queryParam);
 	}
 	
 	@Test
 	public void simpleQueryParsingWithSelectedColumns()throws Exception
 	{
-		query.executeQuery("select EmpID,EmpName from c:\\Emp.csv");
+		query.executeQuery("select EmpID,Name from c:\\emp1.csv");
 		QueryParam queryParam=query.getQueryParam();
-		displayAllData("select EmpID,EmpName from c:\\Emp.csv",queryParam);
-	}*/
+		displayAllData("select EmpID,Name from c:\\emp1.csv",queryParam);
+	}
 	
 	@Test
 	public void simpleQueryParsingwithAllColumnsWithWhereClause()throws Exception
 	{
-		query.executeQuery("select * from c:\\Emp.csv where Salary>20000 and Salary<38000 or City=Hyderabad");
+		query.executeQuery("select * from c:\\emp1.csv where Salary>20000 and Salary<38000 or City=Bangalore");
 		QueryParam queryParam=query.getQueryParam();
-		displayAllData("select * from c:\\Emp.csv where Salary>20000 and Salary<38000 or City=Hyderabad",queryParam);
+		displayAllData("select * from c:\\emp1.csv where Salary>20000 and Salary<38000 or City=Bangalore",queryParam);
 	}
 	
-	/*@Test
+	@Test
 	public void simpleQueryWithSelectedColumnsWithWhereClause()throws Exception
 	{
-		query.executeQuery("select EmpID,EmpName from c:\\Emp.csv where Salary>20000");
+		query.executeQuery("select EmpID,Name from c:\\emp1.csv where Salary>20000");
 		QueryParam queryParam=query.getQueryParam();
-		displayAllData("select EmpID,EmpName from c:\\Emp.csv where Salary>20000",queryParam);
-	}
+		displayAllData("select EmpID,Name from c:\\emp1.csv where Salary>20000",queryParam);
+	}*/
 	
 	@Test
 	public void simpleQueryWithAllColumnsWithOrderBy()throws Exception
 	{
-		query.executeQuery("select * from c:\\Emp.csv  where Salary>20000 order by Salary");
+		query.executeQuery("select * from c:\\emp1.csv  where Salary>20000 order by Salary");
 		QueryParam queryParam=query.getQueryParam();
-		displayAllData("select * from c:\\Emp.csv  where Salary>20000 order by Salary",queryParam);
-	}*/
+		displayAllData("select * from c:\\emp1.csv  where Salary>20000 order by Salary",queryParam);
+	}
 	
 	
 	public void displayAllData(String query,QueryParam queryParam)
 	{
 		System.out.println("Query:"+query);	
+		
 		System.out.println("File Path:"+queryParam.getFilePath());
 		
 		List<Criteria> listCriterias=queryParam.getCriterias();
@@ -76,9 +77,10 @@ public class QueryParserTestCase
 		
 		System.out.println("Order By Column:"+queryParam.getOrderByColumn());
 		System.out.println("Group By Column:"+queryParam.getGroupByColumn());
-		System.out.println("Query Type:"+queryParam.getQueryType());
-		
+		System.out.println("Query Type:"+queryParam.getQueryType());	
 		System.out.println("Select Fields:"+queryParam.getColumnList());
+		System.out.println("Select Aggregate Fields:"+queryParam.getListAggregateColumn());
+		System.out.println("Query Type:"+queryParam.getQueryType());
 		
 	}
 	

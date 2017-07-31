@@ -111,7 +111,7 @@ public class Query
 		
 		if(queryString.contains("order by"))
 		{
-			orderByColumn=queryString.split("order by")[1].split("group by")[0].trim();
+			orderByColumn=queryString.split("order by")[1].split("group by")[0].trim().toLowerCase();
 		}
 		return orderByColumn;
 	}
@@ -121,7 +121,7 @@ public class Query
 		String groupByColumn=null;
 		if(queryString.contains("group by"))
 		{
-			groupByColumn=queryString.split("group by")[1].trim();
+			groupByColumn=queryString.split("group by")[1].trim().toLowerCase();
 			queryParam.setQueryType("GROUP_BY_QUERY");
 		}
 		return groupByColumn;
@@ -181,18 +181,21 @@ public class Query
 			int fieldCount=columnList.length;
 			while(count<fieldCount)
 			{
-				if(!columnList[count].trim().equals(queryParam.getGroupByColumn()))
+				if(!columnList[count].trim().toLowerCase().equals(queryParam.getGroupByColumn()))
 				{
 				AggregateColumn aggregateColumn=new AggregateColumn();
 				String aggregateColumnName=columnList[count].substring(columnList[count].indexOf('(')+1,columnList[count].indexOf(')'));
-				aggregateColumn.setAggregateColumnName(aggregateColumnName.trim());
+				aggregateColumn.setAggregateColumnName(aggregateColumnName.trim().toLowerCase());
 				aggregateColumn.setAggregateFunction(columnList[count].split("\\(")[0].trim());
 				//aggregateColumn.setAggregatecolumnPosition(queryParam.getHeaderRow().get(aggregateColumnName));
 				queryParam.getListAggregateColumn().add(aggregateColumn);
 				}
 				count++;
 			}
+			if(!queryParam.getQueryType().equals("GROUP_BY_QUERY"))
+			{
 			queryParam.setQueryType("AGGREGATE_COLUMN");
+			}
 		}
 		else
 		{

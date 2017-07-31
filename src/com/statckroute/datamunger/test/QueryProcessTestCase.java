@@ -2,6 +2,7 @@ package com.statckroute.datamunger.test;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -66,7 +67,7 @@ public class QueryProcessTestCase
 	@Test
 	public void simpleQueryParsingwithAllColumnsWithWhereClause()throws Exception
 	{
-		String queryString="select * from c:\\emp1.csv where Salary>20000 and Salary<38000 or City=Hyderabad";
+		String queryString="select * from c:\\emp1.csv where Salary>20000 and Salary<38000 or City=Kolkata";
 		DataSet dataSet=query.executeQuery(queryString);
 		assertNotNull(dataSet);
 		System.out.println(queryString);
@@ -76,7 +77,7 @@ public class QueryProcessTestCase
 	@Test
 	public void simpleQueryParsingwithSelectedColumnsWithWhereClause()throws Exception
 	{
-		String queryString="select empid,city,name from c:\\emp1.csv where Salary>20000 and Salary<38000 or City=Hyderabad";
+		String queryString="select empid,city,name from c:\\emp1.csv where Salary>20000 and Salary<38000 or City=Kolkata";
 		DataSet dataSet=query.executeQuery(queryString);
 		assertNotNull(dataSet);
 		System.out.println(queryString);
@@ -101,6 +102,26 @@ public class QueryProcessTestCase
 		assertNotNull(dataSet.getAggregateRow());
 		System.out.println(queryString);
 		displayAllResultSetData(dataSet);
+	}
+	
+	@Test
+	public void groupByDataDisplayWithoutWhereClause()throws Exception
+	{
+		String queryString="select Dept,sum(Salary),min(Salary),max(Salary),count(city) from c:\\emp1.csv group by Dept";
+		DataSet dataSet=query.executeQuery(queryString);
+		assertNotNull(dataSet);
+		System.out.println(queryString);
+		displayGroupByRecords(queryString,dataSet);
+	}
+	
+	@Test
+	public void groupByDataDisplayWithWhereClause()throws Exception
+	{
+		String queryString="select Dept,sum(Salary),min(Salary),max(Salary),count(city) from c:\\emp1.csv where city=Kolkata or city=Bangalore group by Dept";
+		DataSet dataSet=query.executeQuery(queryString);
+		assertNotNull(dataSet);
+		System.out.println(queryString);
+		displayGroupByRecords(queryString,dataSet);
 	}
 
 	public void displayAllResultSetData(DataSet dataSet)
@@ -134,6 +155,32 @@ public class QueryProcessTestCase
 				count++;
 			}
 		}
+	}
+	
+	public void displayGroupByRecords(String str,DataSet dataSet4)
+	{
+		System.out.println();
+		System.out.println(str);
+		System.out.println();
+		
+		LinkedHashMap<String,List<AggregateColumn>> groupRows=dataSet4.getTotalGroupedData();
+
+		Set<String> groupByColumnValues=groupRows.keySet();
+		
+		for(String groupByColumnValue:groupByColumnValues)
+		{
+			List<AggregateColumn> eachGroupRow=dataSet4.getTotalGroupedData().get(groupByColumnValue);
+			System.out.print(groupByColumnValue+"\t");
+		
+			for(AggregateColumn aggregateColumn:eachGroupRow)
+			{
+				System.out.print(aggregateColumn.getAggregateValue()+"\t");
+			}
+			
+			System.out.println();
+		}
+		
+		
 	}
 
 }

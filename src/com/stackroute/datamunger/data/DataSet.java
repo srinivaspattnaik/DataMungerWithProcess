@@ -5,8 +5,6 @@ public class DataSet
 {
 	private List<DataRow> resultSet=new ArrayList<DataRow>();
 	
-	//private LinkedHashMap<String,Float> aggregateRow=new LinkedHashMap<String,Float>();
-	
 	private List<AggregateColumn> aggregateRow=new ArrayList<AggregateColumn>();
 	
 	public List<AggregateColumn> getAggregateRow() {
@@ -18,15 +16,16 @@ public class DataSet
 	}
 
 	private LinkedHashMap<String,List<DataRow>> groupByDataSetNew=new LinkedHashMap<String,List<DataRow>>();
+		
 	
-	private LinkedHashMap<String,LinkedHashMap<String,Float>> totalGroupedData=new LinkedHashMap<String,LinkedHashMap<String,Float>>(); 
+	private LinkedHashMap<String,List<AggregateColumn>> totalGroupedData=new LinkedHashMap<String,List<AggregateColumn>>();
 	
-	public LinkedHashMap<String,LinkedHashMap<String, Float>> getTotalGroupedData() 
+	public LinkedHashMap<String, List<AggregateColumn>> getTotalGroupedData() 
 	{
 		return totalGroupedData;
 	}
 
-	public void setTotalGroupedData(LinkedHashMap<String,LinkedHashMap<String, Float>> totalGroupedData) 
+	public void setTotalGroupedData(LinkedHashMap<String, List<AggregateColumn>> totalGroupedData) 
 	{
 		this.totalGroupedData = totalGroupedData;
 	}
@@ -40,14 +39,6 @@ public class DataSet
 	{
 		this.groupByDataSetNew = groupByDataSetNew;
 	}
-
-	/*public LinkedHashMap<String, Float> getAggregateRow() {
-		return aggregateRow;
-	}
-
-	public void setAggregateRow(LinkedHashMap<String, Float> aggregateRow) {
-		this.aggregateRow = aggregateRow;
-	}*/
 
 	public List<DataRow> getResultSet() 
 	{

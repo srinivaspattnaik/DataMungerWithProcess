@@ -70,20 +70,20 @@ public class AggregateQueryProcessor implements QueryProcessor
 	public List<AggregateColumn> evaluateAggregateColumns(List<DataRow> groupRows,QueryParam queryParam)
 	{
 		int aggregateColumnCount=queryParam.getListAggregateColumn().size();
-		int count=0,recordCount=0,columnCount=0;
-		float sumValue=0,avgValue=0,minValue=0,maxValue=0,countValue=0,countColumnValue=0;
+		int count=0,columnCount=0;
 		
 		int groupRowSize=groupRows.size();
 		List<AggregateColumn> listAggregateColumn=queryParam.getListAggregateColumn();
 		HeaderRow headerRow=queryParam.getHeaderRow();
-		
+		String actualRowValue;
+		String aggregateFunctionName;
 		while(count<groupRowSize)
 		{
 			columnCount=0;	
 			while(columnCount<aggregateColumnCount)
 			{
-				String actualRowValue=groupRows.get(count).get(headerRow.get(listAggregateColumn.get(columnCount).getAggregateColumnName()));
-				String aggregateFunctionName=listAggregateColumn.get(columnCount).getAggregateFunction().toLowerCase();
+				actualRowValue=groupRows.get(count).get(headerRow.get(listAggregateColumn.get(columnCount).getAggregateColumnName()));
+				aggregateFunctionName=listAggregateColumn.get(columnCount).getAggregateFunction().toLowerCase();
 				float value=listAggregateColumn.get(columnCount).getAggregateValue();
 				
 				if(!FilterData.evaluateDataType(actualRowValue))

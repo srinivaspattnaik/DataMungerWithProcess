@@ -1,6 +1,6 @@
 package com.stackroute.datamunger.data;
 
-public class AggregateColumn 
+public class AggregateColumn implements Cloneable
 {
 	private String aggregateColumnName;
 	
@@ -41,6 +41,11 @@ public class AggregateColumn
 	public void setAggregatecolumnPosition(int aggregatecolumnPosition) 
 	{
 		this.aggregatecolumnPosition = aggregatecolumnPosition;
+	}
+	
+	public AggregateColumn clone() throws CloneNotSupportedException
+	{
+		return (AggregateColumn)super.clone();
 	}
 	
 }

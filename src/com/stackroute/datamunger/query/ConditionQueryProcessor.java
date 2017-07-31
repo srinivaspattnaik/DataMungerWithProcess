@@ -13,7 +13,8 @@ import com.stackroute.datamunger.data.HeaderRow;
 import com.stackroute.datamunger.utility.FilterData;
 import com.stackroute.datamunger.utility.SortData;
 
-public class ConditionQueryProcessor implements QueryProcessor {
+public class ConditionQueryProcessor implements QueryProcessor 
+{
 
 	@Override
 	public DataSet executeQuery(QueryParam queryParam) throws Exception 
